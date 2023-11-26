@@ -24,7 +24,6 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
             MvcRequestMatcher.Builder mvc = new MvcRequestMatcher.Builder(introspector);
             return http
                     .authorizeHttpRequests(authorize -> authorize
-                            // Permit POST and GET requests to /register for all users
                             .requestMatchers(AntPathRequestMatcher.antMatcher(HttpMethod.POST, "/register")).permitAll()
                             .requestMatchers(AntPathRequestMatcher.antMatcher(HttpMethod.GET, "/register")).permitAll()
                             .requestMatchers(mvc.pattern("/secure/**")).hasRole("USER")
@@ -32,6 +31,7 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
                             .requestMatchers(mvc.pattern("/js/**")).permitAll()
                             .requestMatchers(mvc.pattern("/css/**")).permitAll()
                             .requestMatchers(mvc.pattern("/images/**")).permitAll()
+                            .requestMatchers(mvc.pattern("/admin/**")).hasRole("ADMIN")
                             .requestMatchers(mvc.pattern("/permission-denied")).permitAll()
                             .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
                             .anyRequest().authenticated()
