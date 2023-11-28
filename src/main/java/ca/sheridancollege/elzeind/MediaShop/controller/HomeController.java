@@ -9,4 +9,8 @@ public class HomeController {
     public String home(Model model){
         return "secure/home";
     }
+    @GetMapping("/admin/admin-home")
+    public String adminHome(Model model){
+        return "admin/admin-home";
+    }
 }
