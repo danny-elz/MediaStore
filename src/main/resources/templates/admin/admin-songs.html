@@ -1,10 +1,196 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Songs Database</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #ececec;
+            color: #333;
+        }
+
+        .page-container {
+            max-width: 1200px; ]
+            margin: auto;
+            background: #fff; /* White background for the content */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            padding: 20px;
+        }
+
+        .header {
+            background-color: #673ab7; /* Deep purple header */
+            color: white;
+            padding: 10px 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd; /* Light grey border for separation */
+        }
+
+        th {
+            background-color: #673ab7; /* Matching the header background */
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5; /* Light grey background on row hover */
+        }
+
+        input[type="number"],
+        input[type="text"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 15px 0;
+            border: 1px solid #ddd; /* Consistent with table borders */
+            box-sizing: border-box; /* Include padding and border in the element's width */
+        }
+
+        input[type="submit"] {
+            background-color: #333; /* Dark grey background for contrast */
+            color: white;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #555; /* A slightly lighter grey on hover */
+        }
+
+        .logout-button,
+        .view-books-button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .logout-button {
+            background-color: #d9534f; /* A red color for logout to indicate a cautionary action */
+            color: white;
+        }
+
+        .logout-button:hover {
+            background-color: #c9302c; /* A darker red on hover for the logout button */
+        }
+
+
+        /* Additional styling for form labels to make them more distinct */
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* Styling for links to edit and delete */
+        a {
+            color: #673ab7; /* Using the header color for links for consistency */
+        }
+
+        a:hover {
+            color: #8559da; /* A lighter purple for hover */
+        }
+        .page-container {
+            position: relative; /* Add this line */
+            max-width: 1200px;
+            margin: auto;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .header {
+            position: relative; /* Ensure header is relative for positioning the home button */
+            background-color: #673ab7;
+            color: white;
+            padding: 10px 20px;
+        }
+
+        .home-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            position: absolute;
+            right: 20px; /* Position from the right edge of the header */
+            top: 10px;  /* Position from the top edge of the header */
+        }
+
+    </style>
 </head>
 <body>
+<div class="page-container">
+        <button class="logout-button" onclick="location.href='/logout'">Logout</button>
+        <a href="/admin/admin-home" class="home-button">Home</a>
 
+    <table th:if="${songList}" class="songs-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Artist</th>
+            <th>Genre</th>
+            <th>Release Year</th>
+            <th>Duration</th>
+            <th>Album</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="aSong:${songList}">
+            <td th:text="${aSong.id}"></td>
+            <td th:text="${aSong.title}"></td>
+            <td th:text="${aSong.artist}"></td>
+            <td th:text="${aSong.genre}"></td>
+            <td th:text="${aSong.releaseYear}"></td>
+            <td th:text="${aSong.duration}"></td>
+            <td th:text="${aSong.album}"></td>
+            <td><a th:href="@{|/editSongById/${aSong.id}|}">Edit</a></td>
+            <td><a th:href="@{|/deleteSongById/${aSong.id}|}">Delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <form method="post" action="/addSong" th:action="@{/addSong}" th:object="${song}">
+        <label for="id">ID:</label>
+        <input type="number" id="id" name="id" th:field="*{id}"/>
+
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" th:field="*{title}"/>
+
+        <label for="artist">Artist:</label>
+        <input type="text" id="artist" name="artist" th:field="*{artist}"/>
+
+        <label for="genre">Genre:</label>
+        <input type="text" id="genre" name="genre" th:field="*{genre}"/>
+
+        <label for="releaseYear">Release Year:</label>
+        <input type="number" id="releaseYear" name="releaseYear" th:field="*{releaseYear}"/>
+
+        <label for="duration">Duration:</label>
+        <input type="text" id="duration" name="duration" th:field="*{duration}"/>
+
+        <label for="album">Album:</label>
+        <input type="text" id="album" name="album" th:field="*{album}"/>
+
+        <input type="submit" value="Add Song"/>
+    </form>
+</div>
 </body>
 </html>

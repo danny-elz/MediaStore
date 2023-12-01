@@ -36,12 +36,45 @@
         .button:hover {
             background-color: #005f73;
         }
+        .logout-button,
+        .view-books-button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .logout-button {
+            background-color: #d9534f; /* A red color for logout to indicate a cautionary action */
+            color: white;
+        }
+
+        .logout-button:hover {
+            background-color: #c9302c; /* A darker red on hover for the logout button */
+        }
+
+        /* Additional styles for positioning the logout button */
+        .header {
+            position: relative; /* This will be the reference for the absolute positioning of the logout button */
+        }
+
+        .logout-button {
+            position: absolute; /* Position the logout button absolutely relative to its positioned parent */
+            left: 10px; /* 10px from the right edge of the .header container */
+            top: 10px; /* 10px from the top edge of the .header container */
+        }
+
     </style>
 </head>
 <body>
 <div class="header">
+    <button class="logout-button" onclick="location.href='/logout'">Logout</button>
     <h1>Media Store</h1>
-    <h2>ADMIN</h2>
+    <h2>ROLE :: ADMIN</h2>
 </div>
 <div class="button-container">
     <a href="/admin/admin-movies" class="button">Movies</a>

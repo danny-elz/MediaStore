@@ -48,7 +48,7 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
                     )
                     .formLogin(form -> form
                             .loginPage("/login")
-                            .successHandler(customLoginSuccessHandler()) // Make sure this is your bean
+                            .successHandler(customLoginSuccessHandler())
                             .permitAll()
                     )
 
