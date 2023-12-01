@@ -2,24 +2,23 @@ package ca.sheridancollege.elzeind.MediaShop.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.security.core.Authentication;
 
 @Controller
 public class LoginController {
 
     @GetMapping("/")
     public String getlogin() {
-        return "/login"; // Ensure this page is accessible without login
+        return "/login";
     }
 
     @GetMapping("/login")
     public String login() {
-        return "/login"; // Ensure this page is accessible without login
+        return "/login";
     }
 
     @GetMapping("/permission-denied")
     public String permissionDenied() {
-        return "/error/permission-denied"; // Accessible without authentication
+        return "/error/permission-denied";
     }
 
 }

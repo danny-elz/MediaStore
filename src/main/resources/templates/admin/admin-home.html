@@ -15,16 +15,40 @@
         .header {
             background-color: #333;
             color: white;
-            padding: 20px 0;
+            padding: 10px 0;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            margin: 5px 0;
+        }
+
+        .logout-button {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            padding: 10px 20px;
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .logout-button:hover {
+            background-color: #c9302c;
         }
 
         .button-container {
-            margin-top: 50px;
+            margin: 50px 0;
         }
 
         .button {
             display: inline-block;
-            padding: 10px 20px;
+            padding: 15px 30px;
             margin: 10px;
             background-color: #008CBA;
             color: white;
@@ -36,18 +60,33 @@
         .button:hover {
             background-color: #005f73;
         }
+
+        .footer {
+            padding: 20px 0;
+            background-color: #333;
+            color: white;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
 <div class="header">
+    <button class="logout-button" onclick="location.href='/logout'">Logout</button>
     <h1>Media Store</h1>
-    <h2>ADMIN</h2>
+    <h2>ROLE :: ADMIN</h2>
 </div>
 <div class="button-container">
     <a href="/admin/admin-movies" class="button">Movies</a>
     <a href="/admin/admin-songs" class="button">Songs</a>
     <a href="/admin/admin-podcasts" class="button">Podcasts</a>
     <a href="/admin/admin-games" class="button">Games</a>
+    <a href="/admin/view-orders" class="button">View Orders</a>
+</div>
+<div class="footer">
+    <p>© 2023 Media Store. All rights reserved.</p>
 </div>
 </body>
 </html>

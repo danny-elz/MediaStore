@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -23,18 +22,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        // Find user by email
         User user = da.findUserAccount(email);
         if (user == null) {
             throw new UsernameNotFoundException("User not found with email: " + email);
         }
-
-        // Fetch user roles from the database
         List<String> roles = da.getRolesById(user.getUserId());
         List<GrantedAuthority> authorities = new ArrayList<>();
 
         for (String role : roles) {
-            // Add logging to check roles
             System.out.println("Authority being granted: " + role);
             authorities.add(new SimpleGrantedAuthority(role));
         }

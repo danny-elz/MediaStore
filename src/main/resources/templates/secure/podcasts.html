@@ -1,10 +1,167 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podcasts</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #ececec;
+            color: #333;
+        }
+
+        .page-container {
+            max-width: 1200px;
+            margin: auto;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            position: relative;
+        }
+
+        .header, .footer {
+            background-color: #673ab7;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #673ab7;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        input[type="number"],
+        input[type="text"],
+        input[type="submit"],
+        button {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        input[type="submit"], button {
+            background-color: #4CAF50;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover, button:hover {
+            background-color: #45a049;
+        }
+
+        .logout-button, .cart-button, .home-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            position: absolute;
+            top: 20px;
+        }
+
+        .logout-button {
+            background-color: #d9534f;
+            left: 20px;
+        }
+
+        .logout-button:hover {
+            background-color: #c9302c;
+        }
+
+        .cart-button {
+            background-color: #007bff;
+            right: 20px;
+        }
+
+        .cart-button:hover {
+            background-color: #0056b3;
+        }
+
+        .home-button {
+            background-color: #4CAF50;
+            right: 140px;
+        }
+
+        .home-button:hover {
+            background-color: #45a049;
+        }
+
+    </style>
 </head>
 <body>
+<a href="/secure/shopping-cart" class="cart-button">Cart</a>
+<button class="logout-button" onclick="location.href='/logout'">Logout</button>
+<a href="/secure/home" class="home-button">Home</a>
+<div class="page-container">
+    <div class="header">
+        <h1>Explore Our Podcasts</h1>
+    </div>
 
+    <table th:if="${podcastList != null && podcastList != ''}" class="podcast-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Host</th>
+            <th>Genre</th>
+            <th>Release Year</th>
+            <th>Duration</th>
+            <th>Language</th>
+            <th>Price</th>
+            <th>Add to Cart</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="aPodcast:${podcastList}">
+            <td th:text="${aPodcast.id}"></td>
+            <td th:text="${aPodcast.title}"></td>
+            <td th:text="${aPodcast.host}"></td>
+            <td th:text="${aPodcast.genre}"></td>
+            <td th:text="${aPodcast.releaseYear}"></td>
+            <td th:text="${aPodcast.duration}"></td>
+            <td th:text="${aPodcast.language}"></td>
+            <td th:text="${aPodcast.price}"></td>
+            <td>
+                <form action="/add-to-cart" method="post">
+                    <input type="hidden" name="itemId" th:value="${aPodcast.id}" />
+                    <input type="hidden" name="quantity" value="1" />
+                    <input type="hidden" name="itemType" value="podcast" />
+                    <input type="hidden" name="redirect" value="/secure/podcasts" />
+                    <button type="submit">Add to Cart</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="footer">
+    <p>&copy; 2023 Podcasts Universe. All Rights Reserved.</p>
+</div>
 </body>
 </html>

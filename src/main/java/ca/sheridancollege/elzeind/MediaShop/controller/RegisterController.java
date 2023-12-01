@@ -3,13 +3,11 @@ package ca.sheridancollege.elzeind.MediaShop.controller;
 import ca.sheridancollege.elzeind.MediaShop.beans.User;
 import ca.sheridancollege.elzeind.MediaShop.database.DatabaseAccess;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 
 @Controller
 public class RegisterController {
@@ -40,7 +38,4 @@ public class RegisterController {
             return "redirect:/registration-failed";
         }
     }
-
-
-
 }
