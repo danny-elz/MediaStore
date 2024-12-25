@@ -1,6 +1,6 @@
 # MediaStore
 
-MediaStore is a Java-based application designed to manage and serve media content efficiently. It provides a robust backend for storing, retrieving, and managing various media files, making it suitable for applications requiring media storage solutions.
+MediaStore is a Java-based application designed to manage and serve media content efficiently. It provides a robust backend for storing, retrieving, and managing various media files.
 
 ## Features
 
